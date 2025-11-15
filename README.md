@@ -4,7 +4,7 @@
 - After they submit, the AI gives recommendations about which skills the employee should improve.
 - HR and Team Leads can see all answers in a table and in charts.
 - The charts show:
-      - Each question
-      - Each answer
-      - How many employees chose each answer
+      1. Each question
+      2. Each answer
+      3. How many employees chose each answer
 - Team Leads can send feedback to employees, and HR can also see this feedback.
