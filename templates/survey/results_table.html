@@ -1,0 +1,72 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>Survey Results</h3>
+
+<table class="table table-bordered mt-3">
+   <thead class="thead-dark">
+    <tr>
+        <th>Employee</th>
+        <th>Question</th>
+        <th>Answer</th>
+        <th>Feedback</th>
+        {% if is_teamlead %}
+        <th>Action</th>
+        {% endif %}
+    </tr>
+</thead>
+
+<tbody>
+    {% for item in results %}
+    <tr>
+        <td>{{ item.employee.username }}</td>
+        <td>{{ item.question.text }}</td>
+        <td>{{ item.answer }}</td>
+        <td>{{ item.feedback }}</td>
+        {% if is_teamlead %}
+        <td>
+            <button class="btn btn-info btn-sm" data-toggle="modal" data-target="#feedbackModal" data-id="{{ item.id }}">
+                Send Feedback
+            </button>
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+</tbody>
+
+
+</table>
+
+<!-- Feedback Modal -->
+{% if is_teamlead %}
+<div class="modal fade" id="feedbackModal">
+    <div class="modal-dialog">
+        <form method="POST" action="{% url 'send_feedback' %}">
+            {% csrf_token %}
+            <input type="hidden" name="answer_id" id="answer-id">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Send Feedback</h5>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <textarea name="feedback" class="form-control" rows="4"></textarea>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button class="btn btn-primary">Send</button>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>
+
+<script>
+$('#feedbackModal').on('show.bs.modal', function (e) {
+    let button = $(e.relatedTarget)
+    let id = button.data('id')
+    $('#answer-id').val(id)
+});
+</script>
+{% endif %}
+
+{% endblock %}

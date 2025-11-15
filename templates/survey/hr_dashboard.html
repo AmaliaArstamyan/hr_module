@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+{% block content %}
+<h3>HR Panel</h3>
+
+<div class="row mt-4">
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">Create Survey Form</h5>
+                <p class="card-text">Add new questions and forms for employees.</p>
+                <a href="{% url 'create_form' %}" class="btn btn-primary">Create Form</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">View Results Table</h5>
+                <p class="card-text">Check all employee answers and provide feedback.</p>
+                <a href="{% url 'results_table' %}" class="btn btn-success">View Table</a>
+            </div>
+        </div>
+    </div>
+
+    <div class="col-md-4">
+        <div class="card text-center">
+            <div class="card-body">
+                <h5 class="card-title">View Results Charts</h5>
+                <p class="card-text">Visualize survey results with charts.</p>
+                <a href="{% url 'results_charts' %}" class="btn btn-info">View Charts</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

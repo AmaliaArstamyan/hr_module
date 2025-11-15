@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Fill Survey Form: {{ form.title }}</h3>
+<form method="POST" class="mt-3">
+    {% csrf_token %}
+    {% for q in questions %}
+    <div class="card mb-3 p-3">
+        <label class="font-weight-bold">{{ q.text }}</label>
+        {% if q.type == "text" %}
+            <input type="text" name="answer_{{ q.id }}" class="form-control">
+        {% elif q.type == "choice" %}
+            {% for opt in q.opts %}
+            <div class="form-check">
+                <input class="form-check-input" type="radio" name="answer_{{ q.id }}" value="{{ opt }}">
+                <label class="form-check-label">{{ opt }}</label>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-success">Submit</button>
+</form>
+
+{% endblock %}

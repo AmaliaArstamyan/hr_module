@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block content %}
+
+<h3>Survey Charts</h3>
+
+{% for chart in charts %}
+<div class="card mb-4 p-3">
+    <h5>{{ chart.question }}</h5>
+    <canvas id="chart{{ forloop.counter }}"></canvas>
+</div>
+{% endfor %}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+const chartData = JSON.parse('{{ charts_json|escapejs }}');
+
+chartData.forEach((chart, index) => {
+    new Chart(document.getElementById(`chart${index + 1}`), {
+        type: 'bar',
+        data: {
+            labels: chart.labels,
+            datasets: [{
+                label: 'Answers',
+                data: chart.values,
+                backgroundColor: 'rgba(54, 162, 235, 0.6)'
+            }]
+        },
+        options: {
+            responsive: true,
+            scales: { y: { beginAtZero: true, precision: 0 } }
+        }
+    });
+});
+</script>
+
+
+{% endblock %}
