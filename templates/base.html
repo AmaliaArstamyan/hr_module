@@ -12,30 +12,30 @@
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-    <a class="navbar-brand" href="{% url 'login' %}">HR Tool</a>
+    <a class="navbar-brand" href="#">HR Tool</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#mainNav"
+            aria-controls="mainNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
 
+    <div class="collapse navbar-collapse" id="mainNav">
+        <ul class="navbar-nav ml-auto">
+            {% if user.is_authenticated %}
+                <li class="nav-item">
+                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">{{ user.username }}</a>
+                </li>
+                <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Logout</a></li>
 
-    <div class="collapse navbar-collapse">
-        <ul class="navbar-nav">
-    {% if user.is_authenticated %}
-        <li class="nav-item"><a class="nav-link">{{ user.username }}</a></li>
-        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Logout</a></li>
-    {% else %}
-        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Login</a></li>
-<li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Register</a></li>
-
-    {% endif %}
-</ul>
-
+            
+            {% endif %}
+        </ul>
     </div>
 </nav>
 
 <div class="container mt-4">
-
-    <!-- Messages -->
     {% if messages %}
       {% for message in messages %}
-        <div class="alert alert-success">{{ message }}</div>
+        <div class="alert alert-{{ message.tags|default:'info' }}">{{ message }}</div>
       {% endfor %}
     {% endif %}
 
@@ -45,6 +45,5 @@
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.bundle.min.js"></script>
 <script src="{% static 'js/script.js' %}"></script>
-
 </body>
 </html>

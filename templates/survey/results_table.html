@@ -40,7 +40,7 @@
 {% if is_teamlead %}
 <div class="modal fade" id="feedbackModal">
     <div class="modal-dialog">
-        <form method="POST" action="{% url 'send_feedback' %}">
+        <form method="POST" action="{% url 'survey:send_feedback' %}">
             {% csrf_token %}
             <input type="hidden" name="answer_id" id="answer-id">
             <div class="modal-content">
@@ -53,7 +53,9 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button class="btn btn-primary">Send</button>
+                    <button class="btn btn-sm btn-primary" data-toggle="modal" data-target="#feedbackModal" data-id="{{ answer.id }}">
+    Send Feedback
+</button>
                 </div>
             </div>
         </form>
